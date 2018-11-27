@@ -1,0 +1,3 @@
+rootProject.name = 'Loginas'
+
+include ':app'
