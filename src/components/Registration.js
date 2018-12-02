@@ -13,7 +13,7 @@ class Registration extends Component {
             conf_: '',
             error: '',
             loading: false,
-            temp: false
+            accCreated: false
         };
         this.registerUser = this.registerUser.bind(this);
         this.onRegistrationFail = this.onRegistrationFail.bind(this);
@@ -34,7 +34,7 @@ class Registration extends Component {
             }
         })
             .then((response) => {
-                this.setState({temp: true});
+                this.setState({accCreated: true});
             })
             .catch((error) => {
                 console.log(error);
@@ -50,10 +50,10 @@ class Registration extends Component {
     }
 
     render() {
-        const {user_, pass_, conf_, error, loading, temp} = this.state;
-        const { form, section, errorTextStyle, logo } = styles;
+        const {user_, pass_, conf_, error, loading, accCreated} = this.state;
+        const { form, section, errorTextStyle, logo, Success } = styles;
 
-        if(!temp) {
+        if(!accCreated) {
             return (
                 <Fragment>
                     <View style = {form}>
@@ -108,9 +108,14 @@ class Registration extends Component {
         }
         else {
             return(
-                <Button onPress={this.props.authSwitch}>
-                    Successful registration
-                </Button>
+                <Fragment>
+                    <Text style={Success}>
+                        Your account has been registered
+                    </Text>
+                    <Button onPress={this.props.authSwitch}>
+                        Go to Login
+                    </Button>
+                </Fragment>
                 )
         }
     }
@@ -137,6 +142,11 @@ const styles = {
         position:'relative',
         width: 256,
         height: 165,
+    },
+    Success: {
+        textAlign: 'center',
+        fontSize: 18,
+        color: 'green',
     }
 };
 

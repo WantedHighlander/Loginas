@@ -66,7 +66,6 @@ export default class LoggedIn extends Component {
 
 const styles = {
     container: {
-
         flex: 1,
         justifyContent: 'center'
     },
