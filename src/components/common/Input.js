@@ -29,15 +29,15 @@ const styles = {
         alignItems: 'center'
     },
     labelStyle: {
-        fontSize: 12,
-        paddingLeft: 20,
+        fontSize: 10,
+        paddingLeft: 10,
         flex: 1
     },
     inputStyle: {
         color: '#000',
         paddingRight: 5,
         paddingLeft: 5,
-        fontSize: 13,
+        fontSize: 10,
         lineHeight: 23,
         flex: 3
     }

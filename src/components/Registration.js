@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import {Input, TextLink, Button, Loading} from "./common";
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
@@ -12,7 +12,8 @@ class Registration extends Component {
             pass_: '',
             conf_: '',
             error: '',
-            loading: false
+            loading: false,
+            temp: false
         };
         this.registerUser = this.registerUser.bind(this);
         this.onRegistrationFail = this.onRegistrationFail.bind(this);
@@ -33,7 +34,7 @@ class Registration extends Component {
             }
         })
             .then((response) => {
-
+                this.setState({temp: true});
             })
             .catch((error) => {
                 console.log(error);
@@ -49,59 +50,69 @@ class Registration extends Component {
     }
 
     render() {
-        const {user_, pass_, conf_, error, loading} = this.state;
-        const { form, section, errorTextStyle } = styles;
+        const {user_, pass_, conf_, error, loading, temp} = this.state;
+        const { form, section, errorTextStyle, logo } = styles;
 
+        if(!temp) {
+            return (
+                <Fragment>
+                    <View style = {form}>
+                        <Image style={logo} source={require('../images/logo.jpg')}>
+                        </Image>
+                        <View style = {section}>
+                            <Input
+                                placeholder="username"
+                                label = "Your username"
+                                value = {user_}
+                                onChangeText={user_ => this.setState({ user_ })}
+                            />
+                        </View>
 
-        return (
-            <Fragment>
-                <View style = {form}>
-                    <View style = {section}>
-                        <Input
-                            placeholder="username"
-                            label = "Username"
-                            value = {user_}
-                            onChangeText={user_ => this.setState({ user_ })}
-                        />
-                    </View>
+                        <View style = {section}>
+                            <Input
+                                secureTextEntry
+                                placeholder = "password"
+                                label = "Your password"
+                                value = {pass_}
+                                onChangeText={pass_ => this.setState({ pass_ })}
+                            />
+                        </View>
 
-                    <View style = {section}>
-                        <Input
-                            secureTextEntry
-                            placeholder = "password"
-                            label = "Password"
-                            value = {pass_}
-                            onChangeText={pass_ => this.setState({ pass_ })}
-                        />
-                    </View>
-
-                    <View style = {section}>
-                        <Input
-                            secureTextEntry
-                            placeholder = "confirm password"
-                            label = " password"
-                            value = {conf_}
-                            onChangeText={conf_ => this.setState({ conf_ })}
-                        />
-                    </View>
-                    <Text style = {errorTextStyle}>
-                        {error}
+                        <View style = {section}>
+                            <Input
+                                secureTextEntry
+                                placeholder = "password"
+                                label = "Confirm password"
+                                value = {conf_}
+                                onChangeText={conf_ => this.setState({ conf_ })}
+                            />
+                        </View>
+                        <Text style = {errorTextStyle}>
+                            {error}
                         </Text>
 
-                    {!loading ?
-                        <Button onPress = {this.props.authSwitch}>
-                            Register
-                        </Button>
-                        :
-                        <Loading size = {'large'} />
+                        {!loading ?
+                            <Button onPress = {this.registerUser}>
+                                Register
+                            </Button>
+                            :
+                            <Loading size = {'large'} />
 
-                    }
+                        }
                     </View>
-                <TextLink onPress = {this.props.authSwitch}>
-                    Log in
-                </TextLink>
-            </Fragment>
-        );
+                    <TextLink onPress = {this.props.authSwitch}>
+                        Log in
+                    </TextLink>
+                </Fragment>
+            );
+        }
+        else {
+            return(
+                <Button onPress={this.props.authSwitch}>
+                    Successful registration
+                </Button>
+                )
+        }
     }
 }
 
@@ -115,12 +126,17 @@ const styles = {
         flexDirection: 'row',
         borderBottomWidth: 1,
         backgroundColor: '#fff',
-        borderColor: '#ddd'
+        borderColor: '#b3b3b3'
     },
     errorTextStyle: {
         alignSelf: 'center',
         fontSize: 18,
         color: 'red'
+    },
+    logo: {
+        position:'relative',
+        width: 256,
+        height: 165,
     }
 };
 

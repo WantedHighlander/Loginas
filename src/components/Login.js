@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
@@ -52,15 +52,17 @@ class Login extends Component {
 
     render() {
         const { user_, pass_, error, loading } = this.state;
-        const { form, section, errorTextStyle } = styles;
+        const { form, section, errorTextStyle, logo } = styles;
 
         return (
             <Fragment>
                 <View style={form}>
+                    <Image style={logo} source={require('../images/logo.jpg')}>
+                    </Image>
                     <View style={section}>
                         <Input
-                            placeholder="Username"
-                            label="Username"
+                            placeholder="username"
+                            label="Your username"
                             value={user_}
                             onChangeText={user_ => this.setState({ user_ })}
                         />
@@ -70,7 +72,7 @@ class Login extends Component {
                         <Input
                             secureTextEntry
                             placeholder="password"
-                            label="Password"
+                            label="Your password"
                             value={pass_}
                             onChangeText={pass_ => this.setState({ pass_ })}
                         />
@@ -113,6 +115,11 @@ const styles = {
         alignSelf: 'center',
         fontSize: 18,
         color: 'red'
+    },
+    logo: {
+        position:'relative',
+        width: 256,
+        height: 165,
     }
 };
 

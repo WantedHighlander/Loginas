@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {Button, Loading} from '../components/common';
 import axios from 'axios';
 
@@ -35,7 +35,7 @@ export default class LoggedIn extends Component {
     }
 
     render() {
-        const { container, userText, errorText } = styles;
+        const { container, userText, errorText, logo } = styles;
         const { loading, user_ , error } = this.state;
         if(loading) {
             return (
@@ -47,6 +47,14 @@ export default class LoggedIn extends Component {
         else {
             return (
                 <View style = {container}>
+                    <Image style = {logo} source={require('../images/logo.jpg')}>
+                    </Image>
+                    <Button>
+                        Play
+                    </Button>
+                    <Button>
+                        How to play
+                    </Button>
                     <Button onPress = {this.props.deleteJWT}>
                         Log Out
                     </Button>
@@ -71,5 +79,10 @@ const styles = {
         alignSelf: 'center',
         fontSize: 18,
         color: 'red'
+    },
+    logo: {
+        position:'relative',
+        width: 256,
+        height: 120,
     }
 };
