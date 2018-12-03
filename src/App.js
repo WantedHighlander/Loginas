@@ -24,7 +24,6 @@ export default class App extends Component {
         token_: token_
     });
   }
-
   render() {
     if(this.state.loading) {
       return (

@@ -7,33 +7,11 @@ export default class LoggedIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
+            loading: false,
             user_: '',
             error: ''
         }
     }
-
-    componentDidMount() {
-        const headers = {
-            'Authorization': 'Bearer' + this.props.token_
-        };
-        axios({
-            method: 'GET',
-            url: 'http://ec2-3-120-243-184.eu-central-1.compute.amazonaws.com:3000/login',
-            headers: headers,
-        }).then((response) => {
-            this.setState({
-                user_: response.headers.user_,
-                loading: false
-            });
-        }).catch(( error ) => {
-            this.setState({
-                error: 'Error retrieving data',
-                loading: false
-            });
-        });
-    }
-
     render() {
         const { container, userText, errorText, logo } = styles;
         const { loading, user_ , error } = this.state;

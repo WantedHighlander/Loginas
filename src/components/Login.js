@@ -25,7 +25,7 @@ class Login extends Component {
 
         /*axios({
             method: 'POST',
-            url: 'http://ec2-3-120-243-184.eu-central-1.compute.amazonaws.com:3000/login',
+            url: 'http://ec2-18-196-219-56.eu-central-1.compute.amazonaws.com:3000/login',
             headers: {
                 user_: user_,
                 pass_: pass_
@@ -33,14 +33,14 @@ class Login extends Component {
         })
             .then((response) => {
                 deviceStorage.saveItem("verisecret", response.headers.token_);
-                this.props.newJWT(response.headers);
-                console.log(response.headers.token_);
+                this.props.newJWT(response.headers.token_);
             })
             .catch((error) => {
                 console.log(error);
                 this.onLoginFail();
             });*/
         this.props.newJWT("taisymas");
+        deviceStorage.saveItem("verisecret", "taisymas");
     }
 
     onLoginFail() {

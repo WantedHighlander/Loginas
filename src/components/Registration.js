@@ -23,10 +23,9 @@ class Registration extends Component {
         const{ user_, pass_, conf_ } = this.state;
 
         this.setState({error: '', loading: true});
-
         axios({
             method: 'POST',
-            url: 'http://ec2-3-120-243-184.eu-central-1.compute.amazonaws.com:3000/signup',
+            url: 'http://ec2-18-196-219-56.eu-central-1.compute.amazonaws.com:3000/signup',
             headers: {
                 user_: user_,
                 pass_: pass_,
@@ -34,10 +33,21 @@ class Registration extends Component {
             }
         })
             .then((response) => {
-                this.setState({accCreated: true});
-            })
+                console.log(response.headers.message_);
+                if(response.headers.status_=='success')
+                {
+                    this.setState({accCreated: true, loading: false});
+                }
+                else if(response.headers.status_=='error') {
+                            this.setState({
+                                loading: false,
+                                error: response.headers.message_
+                            });
+                    }
+
+                })
             .catch((error) => {
-                console.log(error);
+                console.log(response.headers);
                 this.onRegistrationFail();
             });
     }
