@@ -10,11 +10,16 @@ export class Home extends Component {
         };
     }
     render() {
-        const {container,userText,errorText,logo} = styles;
+        const {container,userText,errorText,logo,logoContainer,form} = styles;
         return (
-            <View>
-                <Image style={logo} source={require('../images/logo.jpg')}>
+            <View style={form}>
+                <View style={logoContainer}>
+                <Image style={logo} source={require('../images/Logo4.png')}>
                 </Image>
+                </View>
+                <Button style = {container} onPress = {() => this.props.navigation.navigate('Join')}>
+                    Join Lobby
+                </Button>
                 <Button style = {container} onPress = {() => this.props.navigation.navigate('Create')}>
                     Create Lobby
                 </Button>
@@ -27,6 +32,18 @@ export class Home extends Component {
 }
 
 const styles = {
+    form: {
+        flex:1,
+        backgroundColor: '#e6e6e6',
+        width: '100%',
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+    },
+    logoContainer: {
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     container: {
         flex: 1,
         justifyContent: 'center'
@@ -43,7 +60,7 @@ const styles = {
     },
     logo: {
         position:'relative',
-        width: 256,
-        height: 120,
-    }
+        width: '45%',
+        height: '30%',
+    },
 };

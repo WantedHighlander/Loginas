@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image,TextInput } from 'react-native';
 import {Input, TextLink, Button, Loading} from "./common";
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
@@ -61,38 +61,41 @@ class Registration extends Component {
 
     render() {
         const {user_, pass_, conf_, error, loading, accCreated} = this.state;
-        const { form, section, errorTextStyle, logo, Success } = styles;
+        const { form, section, errorTextStyle, logo, Success,logoContainer} = styles;
 
         if(!accCreated) {
             return (
                 <Fragment>
                     <View style = {form}>
-                        <Image style={logo} source={require('../images/logo.jpg')}>
+                        <View style={logoContainer}>
+                        <Image style={logo} source={require('../images/Logo4.png')}>
                         </Image>
+                        </View>
                         <View style = {section}>
-                            <Input
-                                placeholder="username"
-                                label = "Your username"
-                                value = {user_}
-                                onChangeText={user_ => this.setState({ user_ })}
+                            <TextInput style={styles.input}
+                                       placeholder="Enter the username"
+                                       placeholderTextColor='rgba(0,0,0)'
+                                       returnKeyType='next'
+                                       autoCorrect={false}
+                                       value = {user_}
+                                       onChangeText={user_ => this.setState({ user_ })}
                             />
+
                         </View>
 
                         <View style = {section}>
-                            <Input
+                            <TextInput style={styles.input}
                                 secureTextEntry
-                                placeholder = "password"
-                                label = "Your password"
+                                placeholder = "Enter the password"
                                 value = {pass_}
                                 onChangeText={pass_ => this.setState({ pass_ })}
                             />
                         </View>
 
                         <View style = {section}>
-                            <Input
+                            <TextInput style={styles.input}
                                 secureTextEntry
-                                placeholder = "password"
-                                label = "Confirm password"
+                                placeholder = "Confirm your password"
                                 value = {conf_}
                                 onChangeText={conf_ => this.setState({ conf_ })}
                             />
@@ -109,10 +112,12 @@ class Registration extends Component {
                             <Loading size = {'large'} />
 
                         }
+                        <Button
+                        onPress = {this.props.authSwitch}>
+                        Already have an account
+                    </Button>
                     </View>
-                    <TextLink onPress = {this.props.authSwitch}>
-                        Log in
-                    </TextLink>
+
                 </Fragment>
             );
         }
@@ -132,15 +137,30 @@ class Registration extends Component {
 }
 
 const styles = {
+    logoContainer: {
+         flex:1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     form: {
+        flex:1,
+        backgroundColor: '#e6e6e6',
         width: '100%',
         borderTopWidth: 1,
         borderColor: '#ddd',
     },
+    input: {
+        flex:1,
+        height: 50,
+        color: '#000000',
+        marginBottom: 10,
+        paddingHorizontal: 10
+    },
     section: {
+        height:'10%',
         flexDirection: 'row',
         borderBottomWidth: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#e6e6e6',
         borderColor: '#b3b3b3'
     },
     errorTextStyle: {
@@ -150,8 +170,8 @@ const styles = {
     },
     logo: {
         position:'relative',
-        width: 256,
-        height: 165,
+        width: '55%',
+        height: '60%',
     },
     Success: {
         textAlign: 'center',

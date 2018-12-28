@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View, Image } from 'react-native';
+import {Text, View, Image, TextInput} from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
@@ -52,27 +52,27 @@ class Login extends Component {
 
     render() {
         const { user_, pass_, error, loading } = this.state;
-        const { form, section, errorTextStyle, logo } = styles;
+        const { form, section, errorTextStyle, logo,logoContainer } = styles;
 
         return (
             <Fragment>
                 <View style={form}>
-                    <Image style={logo} source={require('../images/logo.jpg')}>
+                    <View style={logoContainer}>
+                    <Image style={logo} source={require('../images/Logo4.png')}>
                     </Image>
+                    </View>
                     <View style={section}>
-                        <Input
-                            placeholder="username"
-                            label="Your username"
+                        <TextInput style={styles.input}
+                            placeholder="Enter your username"
                             value={user_}
                             onChangeText={user_ => this.setState({ user_ })}
                         />
                     </View>
 
                     <View style={section}>
-                        <Input
+                        <TextInput style={styles.input}
                             secureTextEntry
-                            placeholder="password"
-                            label="Your password"
+                            placeholder="Enter your password"
                             value={pass_}
                             onChangeText={pass_ => this.setState({ pass_ })}
                         />
@@ -89,27 +89,35 @@ class Login extends Component {
                         :
                         <Loading size={'large'} />
                     }
-
+                    <Button onPress={this.props.authSwitch}>
+                        Don't have an account
+                    </Button>
                 </View>
-                <TextLink onPress={this.props.authSwitch}>
-                    Don't have an account? Register!
-                </TextLink>
             </Fragment>
         );
     }
 }
 
 const styles = {
+    logoContainer: {
+        height:'50%',
+        width:'100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     form: {
+        flex: 1,
+        backgroundColor: '#e6e6e6',
         width: '100%',
         borderTopWidth: 1,
         borderColor: '#ddd',
     },
     section: {
+        height:'10%',
         flexDirection: 'row',
         borderBottomWidth: 1,
-        backgroundColor: '#fff',
-        borderColor: '#ddd',
+        backgroundColor: '#e6e6e6',
+        borderColor: '#b3b3b3'
     },
     errorTextStyle: {
         alignSelf: 'center',
@@ -118,8 +126,8 @@ const styles = {
     },
     logo: {
         position:'relative',
-        width: 256,
-        height: 165,
+        width: '55%',
+        height: '60%',
     }
 };
 
