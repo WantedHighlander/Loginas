@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import {Loading} from "./components/common";
 import Auth from './screens/Auth';
-import LoggedIn from './screens/LoggedIn';
 import deviceStorage from './services/deviceStorage';
-
+import InGame from './components/InGame';
+import {AppContainer} from './components/common/AppNavigator';
+import {Home} from './screens/Home';
 
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
         token_: '',
-        loading: true
+        loading: true,
+        man:true
     };
 
     this.newJWT = this.newJWT.bind(this);
@@ -25,7 +27,11 @@ export default class App extends Component {
     });
   }
   render() {
-    if(this.state.loading) {
+    /*if(this.state.man)
+      return (
+          <InGame/>
+      );
+    else */if(this.state.loading) {
       return (
           <Loading size = {'large'}/>
       );
@@ -36,8 +42,9 @@ export default class App extends Component {
       );
     }
     else if (this.state.token_) {
+        console.log(this.state.token_);
       return(
-          <LoggedIn token_ = {this.state.token_} deleteJWT = {this.deleteJWT} />
+          <Home token_ = {this.state.token_} deleteJWT = {this.deleteJWT} />
       );
     }
   }

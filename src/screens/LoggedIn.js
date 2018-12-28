@@ -1,44 +1,15 @@
 import React, {Component} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Platform} from 'react-native';
 import {Button, Loading} from '../components/common';
-import axios from 'axios';
+import { AppContainer } from "../components/common/AppNavigator";
 
 export default class LoggedIn extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false,
-            user_: '',
-            error: ''
-        }
-    }
     render() {
-        const { container, userText, errorText, logo } = styles;
-        const { loading, user_ , error } = this.state;
-        if(loading) {
-            return (
-                <View style = {container}>
-                    <Loading size = {'large'} />
-                </View>
-            )
-        }
-        else {
-            return (
-                <View style = {container}>
-                    <Image style = {logo} source={require('../images/logo.jpg')}>
-                    </Image>
-                    <Button>
-                        Play
-                    </Button>
-                    <Button>
-                        How to play
-                    </Button>
-                    <Button onPress = {this.props.deleteJWT}>
-                        Log Out
-                    </Button>
-                </View>
-            );
-        }
+        return (
+            <AppContainer ref={nav => {
+                this.navigator = nav;
+            }}/>
+        );
     }
 }
 

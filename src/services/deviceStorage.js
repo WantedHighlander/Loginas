@@ -27,7 +27,6 @@ const deviceStorage = {
             console.log('AsyncStorage Error: ' + error.message);
         }
     },
-
     async deleteJWT() {
         try{
             await AsyncStorage.removeItem('verisecret')
